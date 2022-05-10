@@ -24,5 +24,4 @@ jobs:
 
     - name: Build
       run: |
-        cd client && yarn install
-        cd client && yarn build
+        cd client && yarn install && yarn build
