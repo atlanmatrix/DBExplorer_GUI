@@ -25,3 +25,15 @@ jobs:
     - name: Build
       run: |
         cd client && yarn install && yarn build
+    
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: distfile
+        path: dist
+        
+
+
+
+
+
