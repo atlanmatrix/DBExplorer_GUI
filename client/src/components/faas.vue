@@ -27,9 +27,9 @@
                 content="Test your code, make sure you have saved your code first"
                 placement="top"
             >
-                <el-button 
-                        type="primary" 
-                        @click="testFunc" 
+                <el-button
+                        type="primary"
+                        @click="testFunc"
                         :disabled="status == 'loading'"
                         :loading="status == 'testing'">
                     {{ testBtn[status] }}
@@ -41,9 +41,9 @@
                 content="Save your code"
                 placement="top"
             >
-                <el-button 
-                        type="primary" 
-                        @click="saveFunc" 
+                <el-button
+                        type="primary"
+                        @click="saveFunc"
                         :disabled="status == 'loading'"
                         :loading="status == 'saving'">
                     {{ saveBtn[status] }}
@@ -57,8 +57,8 @@
             >
                 <el-button
                     v-show="name">
-                    <el-link 
-                            :href="'/api/faas/' + name" 
+                    <el-link
+                            :href="'/api/faas/' + name"
                             :underline="false"
                             target="_blank"
                             >
@@ -66,7 +66,7 @@
                     </el-link>
                 </el-button>
             </el-tooltip>
-            <span 
+            <span
                     v-show="cache && enableCache"
                     style="vertical-align: initial;font-size: 12px;color: #999;display: block;position: absolute;right: 0;bottom: 0;"
                     >Cached data: {{ cache }}</span>
@@ -85,7 +85,7 @@
                 v-model="ret"
                 :rows="8"
                 type="textarea"
-                disabled 
+                disabled
                 placeholder="Return will shown here"
             />
         </el-row>
@@ -96,7 +96,7 @@
     #markdown-ctn {
         max-width: 800px;
         margin: 0 auto;
-        padding-botton: 20px;
+        padding-bottom: 20px;
     }
 
     #markdown-ctn blockquote {
@@ -178,7 +178,7 @@
 
                 this.func_id = this.$route.params.func_id;
                 this.status = 'loading';
-                
+
                 this.resetFooterBar(taskName);
                 let now = Date.now();
                 vGet(`/api/faas/${this.func_id}/info`, {}, (res) => {

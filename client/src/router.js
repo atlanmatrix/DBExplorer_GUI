@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 
+import index from "./components/index";
 import dbMain from "./components/treedb/main"
 import mdViewer from "./components/docs/mdViewer"
 import comingSoon from "./components/comingSoon"
@@ -8,6 +9,7 @@ import FaaSList from "./components/faas/list"
 import setting from "./components/setting"
 
 const routes = [
+    { path: "/", name: "index", component: index, meta: { title: 'Welcome to DB Explorer' },},
     { path: "/coming_soon", name: "comingSoon", component: comingSoon, meta: { title: 'Coming Soon...' },},
     { path: "/doc/:docId", name: "mdViewer", component: mdViewer, meta: { title: 'Document' },},
     { path: "/db/tree", name: "dbMain", component: dbMain, meta: { title: 'TreeDB Explorer' },},

@@ -8,7 +8,7 @@
     #markdown-ctn {
         max-width: 800px;
         margin: 0 auto;
-        padding-botton: 20px;
+        padding-bottom: 20px;
     }
 
     #markdown-ctn blockquote {

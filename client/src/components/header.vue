@@ -10,7 +10,7 @@
             :activeIndex="activeIndex"
             index="1"
         >
-            <el-menu-item index="#" style="height: 58px;">
+            <el-menu-item index="/" style="height: 58px;">
                 <span style="font-weight: 600; font-size: 16px;">「 DB Explorer 」</span>
             </el-menu-item>
             <el-sub-menu style="" index="/host">

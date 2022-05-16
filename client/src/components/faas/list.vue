@@ -2,16 +2,16 @@
     <div id="faas-list-markdown-ctn">
         <el-row v-if="source" justify="space-between">
             <h3>Function list:</h3>
-            <el-button 
-                    type="primary" 
+            <el-button
+                    type="primary"
                     style="margin: 1em 0;"
-                    @click="$router.push('/faas/create')" 
+                    @click="$router.push('/faas/create')"
                     >
                 {{ source ? 'Create' : ', create one!' }}
             </el-button>
         </el-row>
         <el-row v-else>
-            <h3>No function found, 
+            <h3>No function found,
                 <el-button type="primary" @click="$router.push('/faas/create')">
                     Create now!
                 </el-button>
@@ -25,7 +25,7 @@
     #faas-list-markdown-ctn {
         max-width: 800px;
         margin: 0 auto;
-        padding-botton: 20px;
+        padding-bottom: 20px;
     }
 
     #faas-list-markdown-ctn blockquote {
