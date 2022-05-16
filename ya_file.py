@@ -66,7 +66,7 @@ class MDFileViewer(BaseHandler, ABC):
         try:
             real_path = os.path.join(
                 os.path.dirname(__file__),
-                f'../docs/{path}'
+                f'docs/{path}'
             )
             with open(real_path, 'r', encoding='utf-8') as fd:
                 data = fd.read()
