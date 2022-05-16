@@ -19,8 +19,9 @@ if MODE == 'DEBUG':
 else:
     log_level = logging.INFO
 
-if not os.path.exists(LOG_PATH):
-    os.makedirs(LOG_PATH)
+log_dir = os.path.dirname(LOG_PATH)
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
 
 logging.basicConfig(
     filename=LOG_PATH,
