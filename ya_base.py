@@ -19,14 +19,14 @@ if MODE == 'DEBUG':
 else:
     log_level = logging.INFO
 
+if not os.path.exists(LOG_PATH):
+    os.makedirs(LOG_PATH)
+
 logging.basicConfig(
     filename=LOG_PATH,
     level=log_level,
     format='[%(asctime)s] [%(levelname)s] %(message)s',
     datefmt='%m/%d/%Y %I:%M:%S %p')
-
-if not os.path.exists(LOG_PATH):
-    os.makedirs(LOG_PATH)
 
 time_handler = logging.handlers.TimedRotatingFileHandler(LOG_PATH, when='d',
                                                          interval=1)
