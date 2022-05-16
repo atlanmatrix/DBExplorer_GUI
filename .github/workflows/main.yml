@@ -39,7 +39,7 @@ jobs:
         
     - name: move dist
       run: |
-        mv ./dist ../
+        mv client/dist ./
 
     -
       name: Set up Docker Buildx
