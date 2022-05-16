@@ -1,1 +1,65 @@
-{"default_host_config": {"name": "Unnamed Host", "host": "", "isStar": false, "dbFiles": [{"name": "ccubase", "editable": false}, {"name": "base", "editable": false}, {"name": "master", "editable": false}, {"name": "Co_1", "editable": false}, {"name": "ipctrl", "editable": false}]}, "host": [{"name": "demo.jiankongyi.com", "host": "demo.jiankongyi.com", "isStar": true, "dbFiles": [{"name": "ccubase", "editable": false}, {"name": "base", "editable": false}, {"name": "master", "editable": false}, {"name": "Co_1", "editable": false}, {"name": "ipctrl", "editable": false}, {"name": "test", "editable": true}]}, {"name": "1", "host": "", "isStar": false, "dbFiles": [{"name": "ccubase", "editable": false}, {"name": "base", "editable": false}, {"name": "master", "editable": false}, {"name": "Co_1", "editable": false}, {"name": "ipctrl", "editable": false}, {"name": "temp", "editable": true}, {"name": "temp", "editable": true}]}], "faas": {"enableCache": true}}
+{
+    "default_host_config": {
+        "name": "Unnamed Host",
+        "host": "",
+        "isStar": false,
+        "dbFiles": [
+            {
+                "name": "ccubase",
+                "editable": false
+            },
+            {
+                "name": "base",
+                "editable": false
+            },
+            {
+                "name": "master",
+                "editable": false
+            },
+            {
+                "name": "Co_1",
+                "editable": false
+            },
+            {
+                "name": "ipctrl",
+                "editable": false
+            }
+        ]
+    },
+    "host": [
+        {
+            "name": "demo.jiankongyi.com",
+            "host": "demo.jiankongyi.com",
+            "isStar": true,
+            "dbFiles": [
+                {
+                    "name": "ccubase",
+                    "editable": false
+                },
+                {
+                    "name": "base",
+                    "editable": false
+                },
+                {
+                    "name": "master",
+                    "editable": false
+                },
+                {
+                    "name": "Co_1",
+                    "editable": false
+                },
+                {
+                    "name": "ipctrl",
+                    "editable": false
+                },
+                {
+                    "name": "test",
+                    "editable": true
+                }
+            ]
+        }
+    ],
+    "faas": {
+        "enableCache": true
+    }
+}
