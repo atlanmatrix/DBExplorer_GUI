@@ -143,7 +143,7 @@
             </el-tab-pane>
         </el-tabs>
         <el-row justify="end">
-            <el-button type="primary" @click="$router.push('/setting/host')" size="small">Advance</el-button>
+            <el-button type="primary" @click="$router.push('/settings')" size="small">advanced</el-button>
             <el-button type="default" @click="searchDialogShow = false" size="small">close</el-button>
         </el-row>
     </el-dialog>
