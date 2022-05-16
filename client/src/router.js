@@ -1,5 +1,6 @@
 import { createWebHistory, createRouter } from "vue-router";
 
+import pageNotFound from "./components/404";
 import index from "./components/index";
 import dbMain from "./components/treedb/main"
 import mdViewer from "./components/docs/mdViewer"
@@ -17,6 +18,7 @@ const routes = [
     { path: "/faas/list", name: "FaaSList", component: FaaSList, meta: { title: 'FaaS List' },},
     { path: "/faas/:func_id/edit", name: "FaasEdit", component: FaaS, meta: { title: 'Edit FaaS' },},
     { path: "/settings", name: "settings", component: setting, meta: { title: 'System Preferences' },},
+    { path: "/:catchAll(.*)", name: "pageNotFound", component: pageNotFound, meta: { title: 'Ooooops..Page not found!' },},
 ];
 
 const router = createRouter({
