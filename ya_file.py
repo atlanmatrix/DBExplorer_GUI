@@ -8,8 +8,6 @@ import traceback
 from time import time
 from abc import ABC
 
-import markdown
-
 from config import UPLOAD_DIR
 from config import TEXT_SUFFIX, IMG_SUFFIX, VIDEO_SUFFIX, MD_SUFFIX
 from ya_base import BaseHandler
@@ -85,50 +83,3 @@ class MDFileViewer(BaseHandler, ABC):
                 'msg': '# Oh! No! Something error...\n\n Documention not exists',
                 'cost': time() - st_ts
             })
-
-
-class FileViewer(BaseHandler, ABC):
-    # @token_checker
-    def get(self, path):
-        app_key = self.get_argument('app_key', '')
-        token = self.get_argument('token', '')
-        suffix = os.path.splitext(path)[-1]
-        filename = os.path.split(path)[-1]
-
-        if os.path.exists(f'docs/{path}'):
-            real_path = f'docs/{path}'
-        else:
-            real_path = rf'{UPLOAD_DIR}{path}'
-
-        kwargs = {
-            "app_key": app_key,
-            "token": token,
-            "path": path,
-            "filename": filename,
-        }
-
-        if not os.path.isfile(real_path):
-            return self.render('NoViewerOrInvalid.html', **kwargs)
-
-        if suffix in TEXT_SUFFIX:
-            with open(real_path, 'r', encoding='utf-8') as fd:
-                data = fd.read()
-
-            kwargs.update({
-                "class_name": TEXT_SUFFIX[suffix],
-                "data": data
-            })
-            return self.render('PureTextFileViewer.html', **kwargs)
-        if suffix in IMG_SUFFIX + VIDEO_SUFFIX:
-            return self.render('UnderDev.html', **kwargs)
-        if suffix in MD_SUFFIX:
-            with open(real_path, 'r', encoding='utf-8') as fd:
-                data = fd.read()
-            html_str = markdown.markdown(data, extensions=[
-                'tables',
-                'markdown.extensions.extra'])
-            kwargs.update({
-                "html_str": html_str
-            })
-            return self.render('MDFileViewer.html', **kwargs)
-        return self.render('DownloadPage.html', **kwargs)

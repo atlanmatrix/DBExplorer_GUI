@@ -12,7 +12,7 @@ import tornado.web
 from superbsapi import bs_treedb_query_mainkeys
 from jkyweb.module.public.TreeModel import TreeModel
 from ya_base import BaseHandler, ya_cost
-from ya_file import FileUploader, FileDownloader, FileViewer, MDFileViewer
+from ya_file import FileUploader, FileDownloader, MDFileViewer
 from ya_faas import ListFunc, CreateFunc, RunFunc, GetFunc
 
 
@@ -534,7 +534,6 @@ def make_app():
         (r"/upload", FileUploader),
         (r"/file/(.*)", FileDownloader),
         (r"/api/doc/md/(.*)", MDFileViewer),
-        (r"/api/doc/(.*)", FileViewer),
         # DB key
         (r"/api/db/tree", TreeDBHandler),
         (r"/api/db/tree/add", TreeDBAddSubkeyHandler),
