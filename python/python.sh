@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+export PYTHONPATH="/srv/www/python/Lib"
+export PYTHONPATH="/srv/www/python/DLLs:$PYTHONPATH"
+export PYTHONPATH="/srv/www/python/Lib/site-packages:$PYTHONPATH"
 export PYTHONPATH="/srv/www/py_dependencies"
 export PYTHONHOME="/srv/www/python"
 
