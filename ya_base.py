@@ -1,7 +1,7 @@
 # @Author: Claude Manchester
 # @Time: 2021-12-10
 # @Remark: base
-from abc import ABC
+import os
 from time import time
 from typing import Any
 import logging
@@ -25,6 +25,8 @@ logging.basicConfig(
     format='[%(asctime)s] [%(levelname)s] %(message)s',
     datefmt='%m/%d/%Y %I:%M:%S %p')
 
+if not os.path.exists(LOG_PATH):
+    os.makedirs(LOG_PATH)
 
 time_handler = logging.handlers.TimedRotatingFileHandler(LOG_PATH, when='d',
                                                          interval=1)
