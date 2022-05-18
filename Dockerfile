@@ -1,4 +1,4 @@
-FROM centos:7
+FROM node:8.9.1-alpine
 ENV LD_LIBRARY_PATH="/srv/www/libs/"
 WORKDIR /srv/www
 COPY . .
