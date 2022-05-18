@@ -34,7 +34,7 @@ jobs:
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: distfile
+        name: dist
         path: client/dist
     
     -
@@ -46,6 +46,10 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_NAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: dist
     -
       name: Build and push
       uses: docker/build-push-action@v3
