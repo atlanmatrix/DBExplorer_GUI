@@ -407,7 +407,8 @@ class TreeDBUpdatePropHandler(BaseHandler):
             prop_val = self.get_argument('prop_val', None)
 
         path_lst = path.split('\\')
-        print(path_lst)
+        self.logger.debug(f'host: "{host}" path: "{path}" '
+                          f'prop_name: "{prop_name}" prop_val: "{prop_val}"')
         try:
             filename, main_key, *sub_key_lst = path_lst
         except Exception:
@@ -450,6 +451,24 @@ class TreeDBUpdatePropHandler(BaseHandler):
                 'msg': 'Update property failed',
                 'cost': time() - st_ts
             })
+
+
+class TreeDBDeletePropHandler(BaseHandler):
+    @ya_cost
+    def post(self):
+        host = self.get_argument('host', None)
+        path = self.get_argument('path', None)
+        prop_name = self.get_argument('prop_name', None)
+
+        db = TreeModel()
+        try:
+            filename, main_key, *sub_key_lst = path
+            db.open(main_key, '\\'.join(sub_key_lst), host, filename)
+            db.delete_prop(prop_name)
+        except Exception as e:
+            return self.ya_error(str(e))
+        else:
+            return self.ya_ok('ok')
 
 
 class TreeDBAutoCodeHandler(BaseHandler):
@@ -600,7 +619,7 @@ def make_app():
         (r"/api/db/tree/props/add", TreeDBDeleteKeyHandler),
         (r"/api/db/tree/props/update", TreeDBUpdatePropHandler),
         (r"/api/db/tree/props/duplicate", TreeDBDeleteKeyHandler),
-        (r"/api/db/tree/props/delete", TreeDBDeleteKeyHandler),
+        (r"/api/db/tree/props/delete", TreeDBDeletePropHandler),
         # Auto code
         (r"/api/db/tree/auto_code", TreeDBAutoCodeHandler),
         # Faas
