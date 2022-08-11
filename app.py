@@ -11,6 +11,7 @@ import tornado.web
 
 from superbsapi import bs_treedb_query_mainkeys
 from jkyweb.module.public.TreeModel import TreeModel
+from config import __VERSION__
 from ya_base import BaseHandler, ya_cost
 from ya_file import FileUploader, FileDownloader, MDFileViewer
 from ya_faas import ListFunc, CreateFunc, RunFunc, GetFunc
@@ -111,10 +112,15 @@ class TreeDBAddSubkeyHandler(BaseHandler):
         st_ts = time()
         db = TreeModel()
 
-        data = json.loads(self.request.body.decode('utf-8'))
-        host = data.get('host', None)
-        path = data.get('path', None)
-        sub_key = data.get('sub_key', None)
+        try:
+            data = json.loads(self.request.body.decode('utf-8'))
+            host = data.get('host', None)
+            path = data.get('path', None)
+            sub_key = data.get('sub_key', None)
+        except Exception:
+            host = self.get_argument('host', None)
+            path = self.get_argument('path', None)
+            sub_key = self.get_argument('sub_key', None)
 
         path_lst = path.split('\\')
 
@@ -159,10 +165,15 @@ class TreeDBUpdateKeyHandler(BaseHandler):
         st_ts = time()
         db = TreeModel()
 
-        data = json.loads(self.request.body.decode('utf-8'))
-        host = data.get('host', None)
-        path = data.get('path', None)
-        sub_key = data.get('sub_key', None)
+        try:
+            data = json.loads(self.request.body.decode('utf-8'))
+            host = data.get('host', None)
+            path = data.get('path', None)
+            sub_key = data.get('sub_key', None)
+        except Exception:
+            host = self.get_argument('host', None)
+            path = self.get_argument('path', None)
+            sub_key = self.get_argument('sub_key', None)
 
         path_lst = path.split('\\')
         print(path_lst)
@@ -207,10 +218,15 @@ class TreeDBDeleteKeyHandler(BaseHandler):
         st_ts = time()
         db = TreeModel()
 
-        data = json.loads(self.request.body.decode('utf-8'))
-        host = data.get('host', None)
-        path = data.get('path', None)
+        try:
+            data = json.loads(self.request.body.decode('utf-8'))
+            host = data.get('host', None)
+            path = data.get('path', None)
+        except Exception:
+            host = self.get_argument('host', None)
+            path = self.get_argument('path', None)
 
+        self.logger.info(path)
         path_lst = path.split('\\')
 
         try:
@@ -378,11 +394,17 @@ class TreeDBUpdatePropHandler(BaseHandler):
         st_ts = time()
         db = TreeModel()
 
-        data = json.loads(self.request.body.decode('utf-8'))
-        host = data.get('host', None)
-        path = data.get('path', None)
-        prop_name = data.get('prop_name', None)
-        prop_val = data.get('prop_val', None)
+        try:
+            data = json.loads(self.request.body.decode('utf-8'))
+            host = data.get('host', None)
+            path = data.get('path', None)
+            prop_name = data.get('prop_name', None)
+            prop_val = data.get('prop_val', None)
+        except Exception:
+            host = self.get_argument('host', None)
+            path = self.get_argument('path', None)
+            prop_name = self.get_argument('prop_name', None)
+            prop_val = self.get_argument('prop_val', None)
 
         path_lst = path.split('\\')
         print(path_lst)
@@ -487,6 +509,24 @@ class ConfigurationManage(BaseHandler):
     Configure handler of web app
     """
     @ya_cost
+    def get(self, cfg_name):
+        # load config file
+        try:
+            config_path = os.path.join(
+                os.path.dirname(__file__), 'webConfig.json')
+            with open(config_path, 'r', encoding='utf-8') as fd:
+                config_data = json.load(fd)
+        except Exception:
+            return self.ya_error('Load configuration json error')
+
+        # check config name
+        if cfg_name not in config_data:
+            return self.ya_error('Invalid configuration entry')
+
+        # get specific config or update value of one config
+        return self.ya_ok(config_data[cfg_name])
+
+    @ya_cost
     def post(self, cfg_name):
         req_body = json.loads(self.request.body.decode('utf-8'))
         op = req_body.get('op', 'get')
@@ -517,6 +557,20 @@ class ConfigurationManage(BaseHandler):
             return self.ya_ok(None, 'Updated successfully')
 
         return self.ya_error('Invalid operation')
+
+
+class SysInfoManage(BaseHandler):
+    @ya_cost
+    def get(self):
+        sys_info = {
+            'ver': __VERSION__
+        }
+
+        return self.ya_ok(sys_info)
+
+    def post(self):
+        pass
+
 
 def make_app():
     """
@@ -556,6 +610,8 @@ def make_app():
         (r"/api/faas/(.*)", RunFunc),
         # Configuration
         (r"/api/cfg/(.*)", ConfigurationManage),
+        # Others
+        (r"/api/sys/info", SysInfoManage),
         # Finally
         (r"/.*", MainHandler),
     ],
@@ -563,6 +619,7 @@ def make_app():
         static_path=static_path,
         static_url_prefix='/yua-static/',
         debug=True)
+
 
 if __name__ == "__main__":
     app = make_app()
