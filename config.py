@@ -1,6 +1,8 @@
 import os.path
 
 
+__VERSION__ = '0.4.1'
+
 # # # # # # # #
 # Web Config  #
 # # # # # # # #
