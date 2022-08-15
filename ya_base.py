@@ -66,23 +66,3 @@ class BaseHandler(tornado.web.RequestHandler, YaMongoDB):
             'msg': msg,
             'cost': time() - self.cost_start
         })
-
-    def write_error(self, status_code: int, **kwargs: Any) -> None:
-        if status_code == 400:
-            self.response(status_code,
-                          'Missing argument')
-        elif status_code == 403:
-            self.response(status_code,
-                          'Permission denied')
-        elif status_code == 404:
-            self.response(status_code,
-                          'Resource not found. Check the URL.')
-        elif status_code == 405:
-            self.response(status_code,
-                          'Method not allowed in this resource.')
-        elif status_code == 500:
-            self.set_status(status_code)
-            self.render('500.html')
-        else:
-            self.response(status_code,
-                          'Internal server error on specific module.')

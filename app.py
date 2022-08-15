@@ -462,7 +462,10 @@ class TreeDBDeletePropHandler(BaseHandler):
 
         db = TreeModel()
         try:
-            filename, main_key, *sub_key_lst = path
+            filename, main_key, *sub_key_lst = path.split('\\')
+            self.logger.debug(f'filename: {filename} '
+                              f'main_key: {main_key}'
+                              f'sub_key_lst: {sub_key_lst}')
             db.open(main_key, '\\'.join(sub_key_lst), host, filename)
             db.delete_prop(prop_name)
         except Exception as e:

@@ -28,6 +28,37 @@
     },
     "host": [
         {
+            "name": "192.168.4.24",
+            "host": "192.168.4.24",
+            "isStar": true,
+            "dbFiles": [
+                {
+                    "name": "ccubase",
+                    "editable": false
+                },
+                {
+                    "name": "base",
+                    "editable": false
+                },
+                {
+                    "name": "master",
+                    "editable": false
+                },
+                {
+                    "name": "Co_1",
+                    "editable": false
+                },
+                {
+                    "name": "ipctrl",
+                    "editable": false
+                },
+                {
+                    "name": "test",
+                    "editable": true
+                }
+            ]
+        },
+        {
             "name": "demo.jiankongyi.com",
             "host": "demo.jiankongyi.com",
             "isStar": true,

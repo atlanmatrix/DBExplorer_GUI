@@ -1,8 +1,3 @@
-# -*- coding: UTF-8 -*-
-# @Author: yh
-# @Time: 2020/11/5 16:18
-# @Remark: 存放Tree db数据库的操作方法，详情见TreeModel使用手册
-
 from superbsapi import *
 
 from BSDb.VariableData import *
@@ -124,12 +119,12 @@ class TreeModel(object):
                 self.exec_tree('Treedb_ReopenMainKey', sub_key, flag, path_flag, main_key, main_key_pwd, file)
             except AssertionError:
                 try:
-                    print('222222222222222222222打开-mk-' + main_key + '-sk-' + sub_key)
                     self.__chl = CBSHandleLoc()
                     self.exec_tree('Treedb_Alloc', host, file, main_key, main_key_pwd, TRDB_OPKF_OPENEXIST, port)
                     self.exec_tree('Treedb_ReopenSubKey', sub_key, flag)
                 except Exception:
-                    raise AssertionError('打开数据库键失败-mk-' + main_key + '-sk-' + sub_key)
+                    raise AssertionError('Open path failed: ' + main_key +
+                                         '\\' + sub_key) from None
         else:
             try:
                 self.exec_tree('Treedb_ReopenSubKey', main_key, flag)
@@ -138,11 +133,11 @@ class TreeModel(object):
                     self.exec_tree('Treedb_ReopenMainKey', '', flag, path_flag, main_key, main_key_pwd, file)
                 except Exception:
                     try:
-                        print('1111111111111111111111111111111111111打开-' + main_key)
                         self.__chl = CBSHandleLoc()
                         self.exec_tree('Treedb_Alloc', host, file, main_key, main_key_pwd, TRDB_OPKF_OPENEXIST, port)
                     except Exception:
-                        raise AssertionError('打开数据库键失败-' + main_key)
+                        raise AssertionError('Open path failed: ' + main_key)\
+                            from None
         return self
 
     def sub_keys(self) -> list:
@@ -198,12 +193,6 @@ class TreeModel(object):
         :return: 属性值
         """
         return self.exec_tree('Treedb_GetProperty', prop_name)
-
-    def create_main_key(self, main_key, host=dbconfig.szdbserver, file='base', main_key_pwd='',
-                        port=dbconfig.ndbport):
-        # TODO 以后要用到了再写吧
-        # self.exec_tree('Treedb_CreateMainKey', host, file, main_key, main_key_pwd, port)
-        pass
 
     def insert_sub_key(self, sub_key='', flag=TDDB_OPKF_CREATEDYNKEY) -> str:
         """
@@ -348,13 +337,6 @@ class TreeModel(object):
             else:
                 key, symbol = res.groups()
                 assert symbol in symbol_map, '查询操作错误！正确操作包含：gt、lt等，详情见TreeModel使用手册'
-            # if re.match(r'^[_]?[[0-9A-Za-z]+[_]?[0-9A-Za-z]+]*?$', key):
-            #     symbol = 'e'
-            # elif re.match(r'^[_]?[[0-9A-Za-z]+[_]?[0-9A-Za-z]+]*?__[0-9A-Za-z]+$', key):
-            #     key, symbol = key.split('__')
-            #     assert symbol in symbol_map, '查询操作错误！正确操作包含：gt、lt等，详情见TreeModel使用手册'
-            # else:
-            #     raise ValueError('查询格式错误！正确示例：name="test", vLiData__gt=3，详情见TreeModel使用手册')
 
             temp = {'key': key, 'value_type': type(value).__name__, 'symbol': symbol, 'value': value}
 
